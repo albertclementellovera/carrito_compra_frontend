@@ -1,18 +1,20 @@
-import { Component, Input, OnInit} from '@angular/core';
-import { Product } from '../interfases/product.interface';
-
+import { Component, Input, Output, EventEmitter,} from '@angular/core';
+import { Product } from '../interfaces/product.interface'
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent implements OnInit{
+export class ProductComponent{
 
   @Input() product!: Product;
-  constructor() {}
+  //Evento personalizado
+  @Output() addToCartClick = new EventEmitter<Product>();
 
-  ngOnInit(): void{
+  onClick(): void{
+     this.addToCartClick.emit(this.product);
   }
 }
-
