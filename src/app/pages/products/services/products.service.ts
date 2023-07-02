@@ -18,5 +18,12 @@ export class ProductsService {
   getProducts():Observable<Product[]>{
     return this.http.get<Product[]>(`${this.baseURL}`);
   }
+
+  updateStock(productId: Number, product: Product): Observable<Product> {
+    console.log('updateStock/productsService =>', productId, product);
+    console.log(`${this.baseURL}/${productId}`);
+    return this.http.put<Product>(`${this.baseURL}/${productId}`, product);
+  }
 }
+
 

@@ -28,7 +28,12 @@ export class ProductsComponent implements OnInit{
   }
 
   addToCart(product:Product):void{
+    product.stock = (product.stock - 1);
+    console.log('stock =>', product);
+    this.productSvc.updateStock(product.id, product).subscribe(dato =>{
+    },error => console.log(error));
     console.log('Add to cart',product);
     this.shoppingCartSvc.updateCart(product);
+
   }
 }
