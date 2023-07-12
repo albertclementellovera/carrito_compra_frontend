@@ -65,15 +65,17 @@ export class CheckoutComponent implements OnInit{
       switchMap((order) => {                    //Obtener el Id de la orden
         const orderId = order.id;
         const details = this.prepareDetails(orderId);  //Guardar el detail
-        tap(() => this.router.navigate(['/checkout/thank-you-page'])),
-        delay(2000),
-        tap(() => this.shoppingCartSvc.resetCart())
-
         return ('');
       }),
-
     )
     .subscribe();
+    delay(2000);
+    //this.shoppingCartSvc.resetCart();
+    this.router.navigate(['/payment']);
+    //this.router.navigate(['/success']);
+    //this.router.navigate(['/checkout/thank-you-page']);
+
+
   }
 
   private prepareDetails(orderId: number):void  {  //3:51:16

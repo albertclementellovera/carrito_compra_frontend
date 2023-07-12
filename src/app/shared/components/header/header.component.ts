@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   template:   `
   <mat-toolbar color="primary">
     <a [routerLink]="['/']"><span>My Store</span></a>
+    <a href="numorder">{{ orderId }}</a>
     <span class="spacer"></span>
    <app-cart class="mouseHover" (click)="goToCheckout()"></app-cart>
   </mat-toolbar>
@@ -14,6 +15,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   constructor(private router: Router){}
+  orderId: number=0;
+
   goToCheckout(): void{
     this.router.navigate(['/checkout']);
   }

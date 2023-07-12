@@ -1,0 +1,75 @@
+<div class="container">
+  <h3 class="title">method of payment</h3>
+  <p></p>
+  <form class="form item" #paymentForm="ngForm">
+    <p></p>
+    <mat-radio-group name="”payment”" class="form_element">
+      {{ creditDebitCard }} - iscreditDebitCard?
+      <P>Choose an option:</P>
+      <mat-radio-button
+        name="”payment”"
+        checked
+        value="cash"
+        (change)="onCashCreditCard(false)"
+        >Cash</mat-radio-button
+      >
+      <mat-radio-button
+        name="”payment”"
+        value="creditDebitCard"
+        (change)="onCashCreditCard(true)"
+        >credit / debit card</mat-radio-button
+      >
+    </mat-radio-group>
+
+    <ng-container *ngIf="creditDebitCard; else showCash">
+      <form id="card-form">
+        <div class="card">
+          <div class="card-header">
+            <div class="row display-tr">
+              <h3>pay on line</h3>
+            </div>
+          </div>
+          <div class="card-body">
+            <!--h3>{{ amount }} es amount</h3> -->
+            <div
+              class="container d-flex justify-content-center"
+              *ngIf="amount > 0; else purchase"
+            >
+              <ngx-braintree
+                [getClientToken]="getClientToken.bind(this)"
+                [createPurchase]="checkout.bind(this)"
+                [chargeAmount]="amount"
+                (paymentStatus)="onPaymentStatus($event)"
+                [buttonText]="'Enviar'"
+              >
+              </ngx-braintree>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+
+    <ng-template #showCash>
+      <div class="card-header">
+        <div class="row display-tr">
+          <div
+              class="container" *ngIf="amount > 0; else purchase"
+            >
+          <h3>payment ${{amount}} on delivery of the product </h3>
+         </div>
+        </div>
+      </div>
+      <div class="card-body"></div>
+    </ng-template>
+
+    <ng-template #purchase>
+      <div class="card-header">
+        <div class="row display-tr">
+          <h3>Your shopping cart is empty</h3>
+        </div>
+      </div>
+      <div class="card-body"></div>
+    </ng-template>
+
+  </form>
+</div>

@@ -8,7 +8,9 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CartComponent } from './shared/components/cart/cart.component';
-
+import { SuccessModule } from './pages/success/success.module';
+//external
+import { NgxBraintreeModule } from 'ngx-braintree';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,9 @@ import { CartComponent } from './shared/components/cart/cart.component';
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    SuccessModule,
+    NgxBraintreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
