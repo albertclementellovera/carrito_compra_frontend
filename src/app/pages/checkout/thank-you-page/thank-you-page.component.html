@@ -1,0 +1,65 @@
+<div class="container">
+  <form>
+    <!--p class="content">{{ order | json }}</p> -->
+
+    <div class="order">
+      <section class="products">
+        <h1 class="title">Thank you!</h1>
+        <h2 class="content">Your order is on the way!</h2>
+        <h2 class="content">Summary of purchase</h2>
+        <p class="content">Your order : {{ order.id }} </p>
+        <p class="content">Name : {{ order.name }}</p>
+        <p class="content">
+          created on date : {{ order.date | date : "dd/MM/yyyy" }}
+        </p>
+        <h3 class="content">delivery in :</h3>
+        <div *ngIf="order.store_id > 0; then showStores"></div>
+        <ng-template #showStores>
+          <p class="content">Store name : {{ order.store_name }}</p>
+        </ng-template>
+        <p class="content">Address" : {{ order.shippingAddress }}</p>
+        <p class="content">City : {{ order.city }}</p>
+      </section>
+    </div>
+    <div class="container_table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Price unit</th>
+            <th>Sub total</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor ="let item of cart$ | async">
+            <td>{{item.name}}</td>
+            <td>{{item.qty}}</td>
+            <td>{{item.price | currency}}</td>
+            <td>{{item.qty * item.price | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="container_total">
+       <p class="total">
+        <strong>Total: <span>{{total$ | async |currency}}</span></strong>
+       </p>
+      </div>
+
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="ResetShoppingCart()"
+        [disabled]="order.id <= 0">
+            <!--span class="material-symbols-outlined">
+            payments
+            </span>-->
+          <mat-icon>home </mat-icon>
+          Return</button>
+      </mat-card-actions>
+
+    </div>
+  </form>
+</div>
+
+
+

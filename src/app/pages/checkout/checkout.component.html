@@ -1,0 +1,86 @@
+<div class="container">
+  <form class="form item" #checkoutForm="ngForm">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Name"
+        required
+        [(ngModel)]="model.name"
+        name="name"
+        #name="ngModel"
+      />
+      <mat-error *ngIf="!name.valid || name.pristine">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <p></p>
+
+    <mat-radio-group name=”opciones” class="form_element">
+      {{ delivery }} - isDelivery?
+      <P>Choose an option:</P>
+      <mat-radio-button
+      name=”opciones”
+      value="pickup"
+      (change)="onPickupOrDelivery(false)"
+      >Pickup</mat-radio-button>
+      <mat-radio-button
+      name=”opciones”
+      checked
+      value="delivery"
+      (change)="onPickupOrDelivery(true)"
+      >Delivery</mat-radio-button>
+    </mat-radio-group>
+    <ng-container *ngIf="delivery; else showStores">
+      <p></p>
+    <input
+      mat-input
+      placeholder="Shipping Address"
+      [(ngModel)]="model.shippingAddress"
+      name="shippingAddress"
+      required
+      #shippingAddress="ngModel"
+      >
+      <mat-error *ngIf="!shippingAddress.valid || shippingAddress.pristine">
+        shippingAddress is required
+      </mat-error>
+      <p></p>
+    <input
+      mat-input
+      placeholder="City"
+      [(ngModel)]="model.city"
+      name="city"
+      required
+      #city="ngModel"
+    >
+    <mat-error *ngIf="!city.valid || city.pristine">
+      city is required
+    </mat-error>
+    </ng-container>
+
+    <ng-template #showStores>
+      <p></p>
+      <mat-label>Select me</mat-label>
+      <mat-select name="store" #store="ngModel" [(ngModel)]="model.store" required>
+        <mat-option *ngFor="let tienda of stores" [value]="tienda">
+          {{ tienda.name }} - {{ tienda.openingHours }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!store.valid || store.pristine">
+        Store is required
+      </mat-error>
+    </ng-template>
+
+  </form>
+</div>
+<app-details></app-details>
+<div class="container_button">
+  <button [disabled]="!checkoutForm.form.valid"
+  mat-raised-button
+  color="primary"
+  type="submit"
+  (click)="onsubmit(checkoutForm)"
+  >
+    checkout
+  </button>
+</div>
+
